@@ -1,0 +1,6 @@
+To enable:
+ * Use external editor: on
+ * Exec path: nvim
+ * Flags: --server /tmp/godot.pipe --remote-send "<esc>:n {file}<CR>:call cursor({line},{col})<CR>"
+ or maybe 
+

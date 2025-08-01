@@ -284,6 +284,11 @@ require('lazy').setup({
     },
   },
 
+{
+  'stevearc/conform.nvim',
+  opts = {},
+},
+
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -1011,6 +1016,51 @@ require('lazy').setup({
     },
   },
 })
+
+
+require("lspconfig").clangd.setup({
+    cmd = { "clangd", "--fallback-style=Microsoft" }, -- or LLVM, Google, Chromium, Mozilla, WebKit, Microsoft
+})
+
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Conform will run multiple formatters sequentially
+    python = { "isort", "black" },
+    -- You can customize some of the format options for the filetype (:help conform.format)
+    rust = { "rustfmt", lsp_format = "fallback" },
+    csharp = {"csharpier"},
+    asm = {"asmfmt"},
+    -- Conform will run the first available formatter
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+  },
+})
+
+
+
+
+vim.lsp.enable('pyright')
+vim.lsp.enable('asm_lsp')
+vim.lsp.enable('csharp_ls')
+
+require("conform").setup({
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 500,
+    lsp_format = "fallback",
+  },
+})
+
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+
+--vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+--vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+--vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, opts)
+
+vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end,  { desc = 'Go to declaration' })
+vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, { desc = 'Go to definition' })
+vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, { desc = 'Go to implementation' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
