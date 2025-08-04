@@ -118,6 +118,11 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -283,7 +288,17 @@ require('lazy').setup({
       },
     },
   },
-
+{
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("nvim-tree").setup({})
+        end,
+},
 {
   'stevearc/conform.nvim',
   opts = {},
@@ -1123,6 +1138,28 @@ vim.opt.spelllang = "en_us"
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end,  { desc = 'Go to declaration' })
 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, { desc = 'Go to definition' })
 vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, { desc = 'Go to implementation' })
+
+
+-- nvim-tree setup
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- OR setup with some options
+require("nvim-tree").setup({
+    sort = {
+        sorter = "case_sensitive",
+    },
+    view = {
+        width = 30,
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
