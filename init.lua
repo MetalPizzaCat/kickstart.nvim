@@ -749,7 +749,7 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config[server_name].setup(server)
           end,
         },
       }
@@ -1022,7 +1022,10 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'master',
     build = ':TSUpdate',
+    
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -1095,7 +1098,7 @@ require('lazy').setup({
 })
 
 
-require("lspconfig").clangd.setup({
+vim.lsp.config('clangd', {
     cmd = { "clangd", "--fallback-style=Microsoft" }, -- or LLVM, Google, Chromium, Mozilla, WebKit, Microsoft
 })
 
