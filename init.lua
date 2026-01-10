@@ -1118,7 +1118,7 @@ require("conform").setup({
 
 
 
-
+vim.lsp.enable('clangd')
 vim.lsp.enable('pyright')
 vim.lsp.enable('asm_lsp')
 vim.lsp.enable('csharp_ls')
@@ -1142,6 +1142,8 @@ vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end,  { desc = 'Go
 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, { desc = 'Go to definition' })
 vim.keymap.set("n", "gt", function() vim.lsp.buf.type_definition() end, { desc = 'Go to implementation' })
 
+
+vim.keymap.set("n", "gF", function()  require("nvim-tree.api").tree.toggle() end, { desc = 'show file tree' })
 
 -- nvim-tree setup
 
